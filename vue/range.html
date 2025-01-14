@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+<!-- Задано початок та кінець діапазону -->
+<div id="app">
+  <label>
+    Start
+    <input type="number" v-model.lazy="start">
+  </label>
+  <hr>
+  <label>
+    Finish
+    <input type="number" v-model.lazy="end">
+  </label>
+  <hr>
+  <div>
+    Random number: {{ getRandomNumber() }}
+    Random number: {{ myRandomNumber }}
+  </div>
+</div>
+
+<script>
+  const { createApp } = Vue
+
+  createApp({
+    data() {
+      return {
+        start: 0,
+        end: 10
+      }
+    },
+    methods:{
+      getRandomNumber(){
+        return this.start + Math.floor(Math.random() * (this.end - this.start + 1))
+      }
+    },
+    computed:{ // функція немає жлдного параметра
+      curentYear() {
+        return new Data().getFullYear()
+      },
+      myRandomNumber(){
+        return this.start + Math.floor(Math.random() * (this.end - this.start + 1))
+      }
+    }
+  }).mount('#app')
+</script>
+</body>
+</html>
