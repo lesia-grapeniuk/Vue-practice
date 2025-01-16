@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="assets/icons/logo-vue.png" type="logo vue">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <div id="app" class="page">
+    <div class="wrapper">
+      <div class="main-content">
+        <h1>Task 1</h1>
+        <p>. Вводиться кількість пасажирів. Вивести:
+          скільки потрібно автобусів (кожен автобус на 20 місць)
+          скільки пляшок води (кожному пасажиру 2 пляшки)
+          скільки бутербродів (кожному пасажиру 3 бутерброди)
+          </p>
+          <div class="wrapper-1">
+    <label>Number of passenger
+      <input type="number" v-model="numberOfPassenger">
+    </label>
+    <div>How many buses are needed --- {{ getBussesNeed }}</div>
+    <div>How many bottles are needed --- {{ getBottlesNeed }}</div>
+    <div>How many sandwiches are needed --- {{ getSandwichesNeed }}</div>
+  </div>
+      </div>
+      <div class="img-block">
+        <img src="../logo.svg" alt="">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const numberOfSeatsInTheBus = 20;
+    const bottleOfWaterForPassenger = 2;
+    const sandwichesForPassenger = 3;
+
+    const { createApp } = Vue;
+    createApp({
+      data() {
+        return {
+        numberOfPassenger: 0
+        }
+      },
+      methods: {
+
+      },
+      computed: {
+        getBussesNeed: {
+          get() {
+            return Math.ceil(this.numberOfPassenger / numberOfSeatsInTheBus)
+          }
+        },
+        getBottlesNeed() {
+          return this.numberOfPassenger * bottleOfWaterForPassenger;
+        },
+        getSandwichesNeed() {
+          return this.numberOfPassenger * sandwichesForPassenger;
+        }
+      }
+    }).mount('#app')
+  </script>
+</body>
+
+</html>

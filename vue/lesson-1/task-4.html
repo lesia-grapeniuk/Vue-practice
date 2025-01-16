@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Рахунок у банку</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="assets/icons/logo-vue.png" type="image/png">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    .positive { color: green; }
+    .negative { color: red; }
+  </style>
+</head>
+<body>
+<div id="app">
+  <div class="wrapper">
+    <div class="main-content">
+      <h1>Рахунок у банку</h1>
+      <p>Вимоги:
+        1. Спочатку сума дорівнює 0грн. Змінити суму у гривнях можна або зарахуванням на рахунок, або зняттям.
+        2. Сума автоматично переводиться у долари та євро (фіксований курс задається у data).
+        3. можливість зарахувати суму (контролювати, щоб не була від’ємною)
+        4. можливість зняти (щоб не можна зняти більше ніж є на рахунку)
+        5. при виконанні зняття і зарахування коштів вираховувати 3% від суми (відображати кількість відсотків автоматично)
+        
+        При зміні суми :
+        - якщо було зняття, то суму відоражати червоним
+        - якщо було зарахування, то суму відображати зеленим
+        Якщо сума валюти менша за 100 то відображати червоним кольором, інакше - зеленим
+        </p>
+      <div class="block-task">
+        <div :class="balanceClass">Сума на рахунку: {{ balance.toFixed(2) }} грн</div>
+        <hr>
+        <div class="block">
+          <label>Зарахувати на рахунок:
+            <input type="number" v-model.number="creditAmount" min="0">
+          </label>
+          <button class="btn-money" @click="addMoney">Додати кошти</button>
+        </div>
+        <br>
+        <div class="block">
+          <label>Зняти з рахунку:
+            <input type="number" v-model.number="withdrawAmount" min="0">
+          </label>
+          <button class="btn-money" @click="withdrawMoney">Зняти кошти</button>
+        </div>
+        <br>
+        <p>Комісія за операцію: {{ serviceFee.toFixed(2) }} грн</p>
+        <br>
+        <p>Сума в доларах: ${{ balanceInDollars.toFixed(2) }}</p>
+        <p>Сума в євро: €{{ balanceInEuros.toFixed(2) }}</p>
+      </div>
+    </div>
+    <div class="img-block">
+      <img src="../logo.svg" alt="Логотип">
+    </div>
+  </div>
+</div>
+
+<script>
+  const { createApp } = Vue;
+
+  createApp({
+    data() {
+      return {
+        balance: 0,
+        creditAmount: 0,
+        withdrawAmount: 0,
+        serviceFee: 0,
+        dollarRate: 42,
+        euroRate: 45,
+        transactionType: ''
+      };
+    },
+    computed: {
+      balanceInDollars() {
+        return this.balance / this.dollarRate;
+      },
+      balanceInEuros() {
+        return this.balance / this.euroRate;
+      },
+      balanceClass() {
+        return this.transactionType === 'withdraw' ? 'negative' : 'positive';
+      }
+    },
+    methods: {
+      addMoney() {
+        if (this.creditAmount > 0) {
+          const serviceInterest = this.creditAmount * 0.03;
+          this.serviceFee = serviceInterest;
+          this.balance += (this.creditAmount - serviceInterest);
+          this.transactionType = 'deposit';
+          this.creditAmount = 0;
+        } else {
+          alert('Введіть суму більше нуля для зарахування.');
+        }
+      },
+      withdrawMoney() {
+        if (this.withdrawAmount > 0) {
+          const serviceInterest = this.withdrawAmount * 0.03;
+          this.serviceFee = serviceInterest;
+          if (this.withdrawAmount + serviceInterest <= this.balance) {
+            this.balance -= (this.withdrawAmount + serviceInterest);
+            this.transactionType = 'withdraw';
+            this.withdrawAmount = 0;
+          } else {
+            alert('Недостатньо коштів на рахунку для виконання операції.');
+          }
+        } else {
+          alert('Введіть суму більше нуля для зняття.');
+        }
+      }
+    }
+  }).mount('#app');
+</script>
+</body>
+</html>

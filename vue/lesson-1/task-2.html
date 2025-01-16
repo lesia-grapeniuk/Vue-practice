@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="assets/icons/logo-vue.png" type="image/png">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  <style>
+    img {
+      width: 350px;
+      height: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="app">
+
+    <div class="wrapper">
+      <div class="main-content">
+        <h1>Task 2</h1>
+        <p>Вводиться номер місяця. Автоматично виводити рекомендований одяг (зима – пальто, літо – шорти ….). Також автоматично виводити зображення з відповідним зображенням лісу (зима – ліс зі снігом, осінь – жовтий ліс, …).</p>
+        <div class="block-task">
+
+          <label>Enter month number:
+            <input type="number" v-model.number="monthNumber" min="1" max="12">
+          </label>
+
+          <h2>Recommended Clothing: {{ seasonInfo.clothing }}</h2>
+          <h2>Season: {{ seasonInfo.season }}</h2>
+
+          <img :src="seasonInfo.image" alt="Season Image">
+
+        </div>
+      </div>
+
+      <div class="img-block">
+        <img src="../logo.svg" alt="logo">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp } = Vue;
+
+    createApp({
+      data() {
+        return {
+          monthNumber: 1,
+          seasons: {
+            winter: {
+              season: 'Winter',
+              clothing: 'Coat, cap, gloves',
+              image: ('assets/winter.jpg')
+            },
+            spring: {
+              season: 'Spring',
+              clothing: 'Light jacket, sneakers',
+              image: ('assets/spring.jpg')
+            },
+            summer: {
+              season: 'Summer',
+              clothing: 'Shorts, t-shirt, slippers',
+              image: ('assets/summer.jpg')
+            },
+            autumn: {
+              season: 'Autumn',
+              clothing: 'Sweater, jacket, boots',
+              image: ('assets/autumn.jpg')
+            }
+          },
+          monthToSeason: {
+            12: 'winter',
+            1: 'winter',
+            2: 'winter',
+            3: 'spring',
+            4: 'spring',
+            5: 'spring',
+            6: 'summer',
+            7: 'summer',
+            8: 'summer',
+            9: 'autumn',
+            10: 'autumn',
+            11: 'autumn'
+          }
+        };
+      },
+      computed: {
+        seasonInfo() {
+          const seasonKey = this.monthToSeason[this.monthNumber];
+          return seasonKey ? this.seasons[seasonKey] : {
+            season: 'Invalid month',
+            clothing: '------',
+            image: ('../logo.svg')
+          };
+        }
+      }
+    }).mount('#app');
+  </script>
+</body>
+
+</html>

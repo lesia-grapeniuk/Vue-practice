@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="assets/icons/logo-vue.png" type="image/png">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+
+  <div id="app">
+
+    <div class="wrapper">
+      <div class="main-content">
+        <h1>Task 3</h1>
+        <p>Задано початок та кінець діапазону. При натисканні на кнопку випадковим чином генерувати значення з вказаного діапазону та відображати його.</p>
+        <div class="block-task">
+
+          <div class="random-number">
+            <input type="number" v-model.number="firstNumber">
+            <input type="number" v-model.number="secondNumber">
+            <button @click="getGenerateRandomNumber" class="btn-generate">Generate</button>
+            <p>Generated Number: {{result}}</p>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="img-block">
+        <img src="../logo.svg" alt="logo">
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const { createApp } = Vue
+
+    createApp({
+      data() {
+        return {
+          firstNumber: null,
+          secondNumber: null,
+          result: null
+        }
+      },
+      methods: {
+        getGenerateRandomNumber() {
+          const min = Math.min(this.firstNumber, this.secondNumber);
+          const max = Math.max(this.firstNumber, this.secondNumber);
+          this.result = this.getRandomInt(min, max);
+        },
+        getRandomInt(min, max) {
+          min = Math.ceil(min);
+          max = Math.floor(max);
+          return Math.floor(Math.random() * (max - min + 1) + min)
+        }
+      }
+    }).mount('#app')
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="icon" href="assets/icons/logo-vue.png" type="image/png">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <!-- Додаток містить масив об’єктів (логін, пароль) -- інсуючі логіни
+і паролі. Користувач вводить логін і пароль, а програма повідомляє
+чи може користувач бути авторизованим (чи є він одним з масиву). -->
+  <div id="app">
+    <div class="wrapper">
+      <div class="main-content">
+        <h1>Task 5</h1>
+        <p>Додаток містить масив об’єктів (логін, пароль) --  інсуючі логіни і паролі. Користувач вводить логін і пароль, а програма повідомляє чи може користувач бути авторизованим (чи є він одним з масиву).</p>
+        <div class="block-task">
+          <label>Login
+            <input type="text" v-model="login">
+          </label>
+          <label>Password
+            <input type="password" v-model="password">
+          </label>
+          <button @click="verifyAuthorization" class="btn-verify">Verify</button>
+        </div>
+      </div>
+
+      <div class="img-block">
+        <img src="../logo.svg" alt="logo">
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const { createApp } = Vue
+
+    createApp({
+      data() {
+        return {
+          login: '',
+          password: '',
+          users: [
+            { username: 'user1', password: '123' },
+            { username: 'user2', password: 'pass456' },
+            { username: 'user3', password: '789' },
+            { username: 'user4', password: '123456' },
+            { username: 'user5', password: '123789' }
+          ]
+        }
+      },
+      methods: {
+        verifyAuthorization() {
+          const isAuthorized = this.users.some(user =>
+            user.username === this.login && user.password === this.password)
+          if (isAuthorized) {
+            alert('Welcome!')
+          } else {
+            alert('Try again')
+          }
+        }
+      }
+    }).mount('#app')
+  </script>
+</body>
+
+</html>
