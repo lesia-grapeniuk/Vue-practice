@@ -148,9 +148,7 @@ li:hover {
   flex-direction: column;
   gap: 10px;
 }
-.btn-verify,
-.btn-money,
-.btn-generate,
+
 input {
   border: 1px solid rgba(0, 0, 0, 0.1);
   padding: 10px;
@@ -158,4 +156,23 @@ input {
 }
 p {
   width: 60%;
+}
+.btn-home,
+.btn-verify,
+.btn-money,
+.btn-generate {
+  padding: 10px 15px;
+  background-color: rgb(70, 189, 152);
+  color: white;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.btn-home:hover,
+.btn-verify:hover,
+.btn-money:hover,
+.btn-generate:hover {
+  transition: 0.4s;
+  background-color: rgb(17, 236, 167);;
 }
