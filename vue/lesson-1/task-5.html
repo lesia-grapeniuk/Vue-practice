@@ -21,10 +21,10 @@
         <p>Додаток містить масив об’єктів (логін, пароль) --  інсуючі логіни і паролі. Користувач вводить логін і пароль, а програма повідомляє чи може користувач бути авторизованим (чи є він одним з масиву).</p>
         <div class="block-task">
           <label>Login
-            <input type="text" v-model="login">
+            <input type="text" v-model.lazy="login">
           </label>
           <label>Password
-            <input type="password" v-model="password">
+            <input type="password" v-model.lazy="password">
           </label>
           <button @click="verifyAuthorization" class="btn-verify">Verify</button>
         </div>

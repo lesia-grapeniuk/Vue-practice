@@ -21,8 +21,8 @@
         <div class="block-task">
 
           <div class="random-number">
-            <input type="number" v-model.number="firstNumber">
-            <input type="number" v-model.number="secondNumber">
+            <input type="number" v-model.lazy.number="firstNumber">
+            <input type="number" v-model.lazy.number="secondNumber">
             <button @click="getGenerateRandomNumber" class="btn-generate">Generate</button>
             <p>Generated Number: {{result}}</p>
           </div>

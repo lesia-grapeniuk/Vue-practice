@@ -22,7 +22,7 @@
           </p>
           <div class="wrapper-1">
     <label>Number of passenger
-      <input type="number" v-model="numberOfPassenger">
+      <input type="number" v-model.lazy.number="numberOfPassenger">
     </label>
     <div>How many buses are needed --- {{ getBussesNeed }}</div>
     <div>How many bottles are needed --- {{ getBottlesNeed }}</div>
